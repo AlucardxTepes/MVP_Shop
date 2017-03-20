@@ -1,8 +1,10 @@
 package ado.com.ember.shop;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -33,15 +35,28 @@ public class MainActivity extends AppCompatActivity implements ItemView {
       @Override
       public void onClick(View view) {
         mItemPresenter.loadItemDetails();
+        hideKeyboard(view);
       }
     });
+  }
+
+  private void hideKeyboard(View view) {
+    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
   }
 
   // =========== VIEW METHODS =========== //
 
   @Override
   public int getItemId() {
-    return Integer.valueOf(mIdEditText.getText().toString());
+    try {
+      if (!mIdEditText.getText().toString().isEmpty()) {
+        return Integer.valueOf(mIdEditText.getText().toString());
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return -1;
   }
 
   @Override

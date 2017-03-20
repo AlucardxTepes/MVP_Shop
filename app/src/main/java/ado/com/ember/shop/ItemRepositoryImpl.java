@@ -26,7 +26,11 @@ public class ItemRepositoryImpl implements ItemRepository {
 
   @Override
   public Item getItem(int id) {
-    return mItemList.get(id); // using ID as position here
+    try {
+      return mItemList.get(id); // using ID as position here
+    } catch (Exception e) {
+      return null;
+    }
   }
 
   @Override

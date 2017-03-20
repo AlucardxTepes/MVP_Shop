@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements ItemView {
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
     ((ShopApplication) getApplication()).getAppComponent().inject(this);
+    mItemPresenter.setView(this);
 
     mFindBtn.setOnClickListener(new View.OnClickListener() {
       @Override
